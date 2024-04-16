@@ -1,0 +1,186 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+    background-image: url('./img/background.jpg');
+    background-size: cover;
+}
+
+.rounded {
+    background: rgba(230, 230, 230, 0.5);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.darkBg {
+    background: rgba(200, 200, 200, 0.8);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 5px;
+}
+
+.nav button {
+    background-color: transparent;
+    border: 0;
+    font-size: 10px;
+}
+
+button.active {
+    background-color: orange;
+    border: 10px;
+    padding:0 20px;
+}
+
+input[name="search"] {
+    background-color: rgba(210, 210, 210, 0.7);
+    border: 0;
+    border-radius: 5px;
+    font-size: 10px;
+    outline: 0;
+    padding: 5px;
+
+    flex-basis: 100px;
+    flex-grow:1;
+    
+}
+
+.search {
+    display: flex;
+    gap: 5px;
+}
+
+#searchBtn {
+    border:0;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.textCenter {
+    text-align: center;
+}
+
+h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.movie {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.movieImage {
+    width: 300px;
+    background-size: cover;
+    min-height: 500px;
+    border-radius: 10px;
+}
+
+.movieInfo {
+    width: 300px;
+    flex-grow: 1;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.desc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 5px;
+
+    background-color: rgba(0, 0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 5px; 
+}
+
+.similarMovies {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+
+    margin-top: 5px;
+}
+
+.similarMovie {
+    min-height: 300px;
+    background-size:cover;
+    border-radius: 5px;
+    position: relative;
+}
+
+.saved {
+    background-color: rgba(210, 210, 210, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+
+    position: absolute;
+    top: 5px;
+    left: 5px;
+
+}
+
+.similarTitle {
+    background-color:rgba(210, 210, 210, 0.7);
+    backdrop-filter: blur(3px);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    font-weight: bold;
+    
+}
+
+
+.themeChanger {
+    width: 50px;
+}
+
+.saved img {
+    width: 50px;
+}
+
+
+@media (max-width: 600px) {
+    .similarMovies {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .movieImage {
+        width: 100%;
+    }
+
+    header h1{
+        width: 100%;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 700px) {
+    .movie {
+        flex-wrap: nowrap;
+    }
+}

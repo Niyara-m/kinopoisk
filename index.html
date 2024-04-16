@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинопоиск</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="rounded">
+        <h1>Кинопоиск</h1>
+        <nav class="darkBg">
+            <button class="active">Главная</button>
+            <button>Избранное</button>
+        </nav>
+        <img src="./img/themeChange.svg" alt="themeChanger" class="themeChanger">
+    </header>
+    <div class="rounded search">
+        <input type="text" name="search">
+        <button id="searchBtn" class="darkBg">Поиск</button>
+    </div>
+
+    <div class="rounded">
+        <div class="dark textCenter">
+            <h2>Iron man</h2>
+        </div>
+        <div class="darkBg movie">
+            <div class="movieImage" style="background-image: url(./img/film3.jpg);">
+
+            </div>
+            <div class="movieInfo">
+                <div class="desc">
+                    <div class="title">
+                        Gentre
+                    </div>
+                    <div class="value">
+                        Action, Adventure, Sci fi
+                    </div>
+                </div>
+                <div class="desc">
+                    <div class="title">
+                        ImdbRating
+                    </div>
+                    <div class="value">
+                        7.9
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="darkBg textCenter">
+            <h2>Похожие фильмы</h2>
+        </div>
+        
+        <div class="similarMovies">
+            <div class="similarMovie"  style="background-image: url(./img/film1.jpg);">
+                <div class="saved">
+                    <img src="./img/favBtn.svg" alt="favoritesStar">
+                </div>
+                <div class="similarTitle">
+                    iron-man
+                </div>
+            </div>
+            <div class="similarMovie"  style="background-image: url(./img/film2.jpg);">
+                <div class="saved">
+                    <img src="./img/favBtn.svg" alt="favoritesStar">
+                </div>
+                <div class="similarTitle">
+                    Spider-man
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
