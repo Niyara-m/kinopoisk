@@ -1,8 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
-    background-image: url('./img/background.jpg');
-    background-size: cover;
+    transition: 500ms;
 }
 
 .rounded {
@@ -183,4 +182,61 @@ h2 {
     .movie {
         flex-wrap: nowrap;
     }
+}
+
+body {
+    background-image: url('./img/background.jpg');
+    animation: bg-animation 300s infinite linear;
+}
+
+@keyframes bg-animation {
+    0% {
+        background-position: top left;
+    }
+    25% {
+        background-position: top right;
+    }
+    50% {
+        background-position: bottom right;
+    }
+    75% {
+        background-position: bottom left;
+    }
+    100% {
+        background-position: top left;
+    }
+}
+
+/* Dark mood */
+.dark .rounded {
+    background: rgba(130, 130, 130, 0.5);
+}
+
+.dark .darkBg {
+    background: rgba(100, 100, 100, 0.8);
+}
+
+.dark input[name="search"] {
+    background-color: rgba(110, 110, 110, 0.7);
+}
+
+.dark .saved {
+    background-color: rgba(110, 110, 110, 0.7);
+}
+
+.dark .similarTitle {
+    background-color:rgba(110, 110, 110, 0.7);
+}
+
+.dark, .dark button {
+    color: white;
+}
+
+.themeChanger {
+    transition: transform 0.5s ease, filter 500ms;
+}
+
+.dark .themeChanger {
+    transform: rotate(180deg);
+    filter: invert(100%);
 }
