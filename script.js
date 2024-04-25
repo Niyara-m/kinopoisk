@@ -1,5 +1,6 @@
 let themeChanger = document.getElementsByClassName("themeChanger")[0]
 themeChanger.addEventListener("click", changeTheme)
+let loader = document.querySelector(".loader")
 
 function changeTheme(){
     let body = document.querySelector("body")
@@ -34,12 +35,97 @@ let searchBtn = document.getElementById("searchBtn")
 searchBtn.addEventListener("click", findMovie)
 
 async function findMovie() {
+    loader.style.display = "block"
+
     let searchTitle = document.getElementsByName("search")[0].value
     let response = await sendRequest("http://www.omdbapi.com/", "GET", {
         apikey: "1b7ff984",
         t: searchTitle
     })
     console.log(response)
+    if (response.Response == "False") {
+        loader.style.display = "none"
+        alert ("Фильм не найден")
+    } else {
+        document.getElementById('main').style.display = "block"
+        loader.style.display = "none"
+        showMovie(response)
+        findSimilarMovies()
+    }
 }
 
 // apikey: "3398b93d",
+
+function showMovie(movie) {
+    let title = movie.Title
+    let img = movie.Poster
+
+    document.getElementById("movieTitle").innerHTML = title
+    document.getElementsByClassName("movieImage")[0].style.backgroundImage = `url(${img})`
+
+    let params = [
+        "imdbRating", "Year", "Released", "Genre", "Country", "Language", "Director", "Writer", "Actors", 
+    ]
+
+    let movieInfo = document.querySelector(".movieInfo")
+    movieInfo.innerHTML = ""
+
+    for (let i=0; i < params.length; i++) {
+        let param = params[i]
+        let value = movie[param]
+
+        let desc = `
+        <div class="desc">
+                    <div class="title">
+                        ${param}
+                    </div>
+                    <div class="value">
+                        ${value}
+                    </div>
+                </div>`
+
+        movieInfo.innerHTML = movieInfo.innerHTML + desc
+        console.log(param, value)
+    }
+}
+
+
+async function findSimilarMovies() {
+    let searchTitle = document.getElementsByName("search")[0].value
+    let response = await sendRequest("http://www.omdbapi.com/", "GET", {
+        apikey: "1b7ff984",
+        s: searchTitle
+    })
+    console.log(response)
+    if (response.Response == "False") {
+      
+    } else {
+        showSimilarMovies(response.Search)
+
+        document.getElementById('similarMoviesTitle').innerHTML = `Похожих фильмов ${response.totalResults}`
+    }
+}
+
+function showSimilarMovies(movies) {
+    let similarMovies = document.querySelector('.similarMovies')
+    similarMovies.innerHTML = ""
+
+    for (let i=0; i< movies.length; i++) {
+        let movie = movies[i]
+
+        if (movie.Poster != "N/A") {
+            let similarMovie = `
+            <div class="similarMovie"  style="background-image: url('${movie.Poster}');">
+                <div class="saved" data-imdbID="${movie.imdbID}">
+                    <img src="./img/favBtn.svg" alt="favoritesStar">
+                </div>
+                <div class="similarTitle">
+                    ${movie.Title}
+                </div>
+            </div>
+            `
+
+            similarMovies.innerHTML = similarMovies.innerHTML + similarMovie
+        }
+    }
+}
