@@ -116,8 +116,8 @@ function showSimilarMovies(movies) {
         if (movie.Poster != "N/A") {
             let similarMovie = `
             <div class="similarMovie"  style="background-image: url('${movie.Poster}');">
-                <div class="saved" data-imdbID="${movie.imdbID}">
-                    <img src="./img/favBtn.svg" alt="favoritesStar">
+                <div class="saved" data-imdbID="${movie.imdbID}" data-poster="${movie.Poster}" data-title="${movie.Title}">
+                    <!-- <img src="./img/favBtn.svg" alt="favoritesStar">-->
                 </div>
                 <div class="similarTitle">
                     ${movie.Title}
@@ -125,7 +125,36 @@ function showSimilarMovies(movies) {
             </div>
             `
 
-            similarMovies.innerHTML = similarMovies.innerHTML + similarMovie
+            similarMovies.innerHTML = similarMovies.innerHTML + similarMovie;
+            let saved = document.querySelectorAll(".saved");
+            saved.forEach((elem)=> {
+                elem.addEventListener("click", addSaved)
+            })
         }
     }
+}
+
+function addSaved(){
+    let elem = event.target
+    let movieId = elem.getAttribute("data-imdbID");
+    let title = elem.getAttribute("data-title");
+    let poster = elem.getAttribute("data-poster");
+    let object = {movieId, title, poster}
+
+    elem.classList.add("active")
+    addtFavoriteLS(object)
+    
+    console.log(object)
+}
+
+
+function addtFavoriteLS(movie){
+    let favorites = localStorage.getItem('favorites')
+    if(!favorites) {
+        favorites = []
+    } else {
+        favorites = JSON.parse(favorites)
+    }
+    favorites.push(movie)
+    localStorage.setItem("favorites", JSON.stringify(favorites))
 }
