@@ -139,12 +139,29 @@ function addSaved(){
     let movieId = elem.getAttribute("data-imdbID");
     let title = elem.getAttribute("data-title");
     let poster = elem.getAttribute("data-poster");
-    let object = {movieId, title, poster}
 
-    elem.classList.add("active")
-    addtFavoriteLS(object)
-    
-    console.log(object)
+    let favorites = localStorage.getItem("favorites")
+
+    if(favorites == null) {
+        favorites = "[]"
+    }
+
+    favorites = JSON.parse(favorites)
+
+    console.log(favorites)
+    console.log(movieId)
+    const movieIndex = favorites.findIndex(fav => fav.movieId == movieId);
+    console.log(movieIndex)
+
+    if (movieIndex >= 0) {
+        favorites.splice(movieIndex, 1)
+        localStorage.setItem("favorites", JSON.stringify(favorites))
+        elem.classList.remove("active")
+    } else {
+        let object = {movieId, title, poster}
+        addtFavoriteLS(object)
+        elem.classList.add("active")
+    }
 }
 
 
@@ -157,4 +174,43 @@ function addtFavoriteLS(movie){
     }
     favorites.push(movie)
     localStorage.setItem("favorites", JSON.stringify(favorites))
+}
+
+function showFavorites() {
+    let favorites = localStorage.getItem("favorites")
+    if (favorites == null) {
+        favorites = "[]"
+    }
+    favorites = JSON.parse(favorites)
+
+
+    let similarMoviesTitle = document.getElementById("similarMoviesTitle")
+
+    similarMoviesTitle.innerHTML = `Фильмов в избранном ${favorites.length}`
+    let similarMovies = document.querySelector(".similarMovies")
+    similarMovies.innerHTML = ""
+    favorites.forEach( (fav) => {
+        let movieId = fav.movieId
+        let poster = fav.poster
+        let title = fav.title
+
+        similarMovies.innerHTML = similarMovies.innerHTML + `
+        <div class="similarMovie"  style="background-image: url('${poster}');">
+            <div class="saved active" data-imdbid="${movieId}" data-poster="${poster}" ></div>
+            <div class="similarTitle">${title}</div>
+        </div>
+        `
+
+        console.log(movieId, poster, title)
+    })
+
+    let saved = document.querySelectorAll(".saved");
+    saved.forEach((elem)=> {
+        elem.addEventListener("click", favoriteHandler)
+    })
+
+    function favoriteHandler(){
+        addSaved()
+        showFavorites()
+    }
 }
